@@ -14,7 +14,7 @@ const oAuth = new google.auth.OAuth2(GOOGLE_ID, GOOGLE_SECRET, GOOGLE_REDIRECT);
 
 oAuth.setCredentials({ refresh_token: GOOGLE_REFRESHTOKEN });
 
-export const recieveOrder = async (email: string, username: string) => {
+export const recieveOrder = async (email: string, fullname: string) => {
   try {
     const accessToken = await oAuth.getAccessToken();
     const transporter = nodemailer.createTransport({
@@ -22,21 +22,20 @@ export const recieveOrder = async (email: string, username: string) => {
       auth: {
         type: "OAuth2",
         user: "tribinnov.talent@gmail.com",
-        refreshToken: accessToken,
-        clientId: GOOGLE_ID,
+s        clientId: GOOGLE_ID,
         clientSecret: GOOGLE_SECRET,
         accessToken: GOOGLE_REFRESHTOKEN,
       },
     });
     const buildfile = path.join(__dirname, "../views/mail.ejs");
     const data = await ejs.renderFile(buildfile, {
-      username: username,
+      fullname: fullname,
     });
 
     const mainOptions = {
       from: "Earthe Saloon.<tribinnov.talent@gmail.com>",
       to: email,
-      subject: "Your Order Has Been Recived 🤝🤝🤝",
+      subject: "Account Registration 🤝🤝🤝",
       html: data,
     };
 

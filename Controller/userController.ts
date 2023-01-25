@@ -1,9 +1,7 @@
 import userModel from "../model/userModel";
 import { Request, Response, Router } from "express";
-import cloudinary from "../utils/cloudinary";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import crypto from "crypto";
+import { recieveOrder } from "../email/email";
 
 const getUser = async (req: Request, res: Response) => {
   try {
@@ -28,6 +26,14 @@ const CreateUser = async (req: Request, res: Response): Promise<Response> => {
       email,
       password: hashed,
     });
+
+    recieveOrder(email, fullname)
+      .then((result) => {
+        console.log("Mail Sent", result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     return res.status(200).json({
       message: "Users data updated successfully",
       data: userdata,

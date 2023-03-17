@@ -22,7 +22,7 @@ export const recieveOrder = async (email: string, fullname: string) => {
       auth: {
         type: "OAuth2",
         user: "tribinnov.talent@gmail.com",
-s        clientId: GOOGLE_ID,
+        clientId: GOOGLE_ID,
         clientSecret: GOOGLE_SECRET,
         accessToken: GOOGLE_REFRESHTOKEN,
       },

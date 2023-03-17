@@ -4,6 +4,7 @@ import cors from "cors";
 import { config } from "dotenv";
 import userRoute from "./router/userRouter";
 import productRoute from "./router/productRouter";
+import orderRoute from "./router/orderRouter";
 
 const proc: any = config().parsed;
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(cors());
 app.use("/api", userRoute);
 app.use("/product", productRoute);
+app.use("/order", orderRoute);
 
 app.listen(port, () => {
   console.log(`Server is listening to Post ${port}`);
